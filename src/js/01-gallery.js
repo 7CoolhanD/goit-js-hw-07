@@ -27,12 +27,12 @@ function openImgInModal(e) {
   e.preventDefault();
   const isImage = e.target.classList.contains("gallery__image");
   if (!isImage) {
-    instance.close();
+    modal.close();
   }
-  const instance = basicLightbox.create(`
+  const modal = basicLightbox.create(`
   <div class="modal">
   <img src=${e.target.dataset.source}>
   </div>
   `);
-  instance.show();
+  modal.show();
 }
