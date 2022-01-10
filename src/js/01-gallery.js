@@ -6,13 +6,13 @@ const refs = {
 
 const galleryImgItems = galleryItems
   .map(
-    (item) => `<div class="gallery__item">
-  <a class="gallery__link" href="${item.original}">
+    ({ preview, original, description }) => `<div class="gallery__item">
+  <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
-      src='${item.preview}'
-      data-source='${item.original}'
-      alt='${item.description}'
+      src='${preview}'
+      data-source='${original}'
+      alt='${description}'
     />
   </a>
 </div>`
@@ -20,19 +20,24 @@ const galleryImgItems = galleryItems
   .join("");
 
 refs.gallery.insertAdjacentHTML("afterbegin", galleryImgItems);
-
 refs.gallery.addEventListener("click", openImgInModal);
+document.addEventListener("keydown", modalCloseOnButton);
 
 function openImgInModal(e) {
   e.preventDefault();
-  const isImage = e.target.classList.contains("gallery__image");
-  if (!isImage) {
-    modal.close();
+  if (e.target === e.currentTarget) {
+    return;
   }
   const modal = basicLightbox.create(`
-  <div class="modal">
-  <img src=${e.target.dataset.source}>
-  </div>
-  `);
+<div class="modal">
+<img src=${e.target.dataset.source}>
+</div>
+`);
   modal.show();
+}
+
+function modalCloseOnButton(ev) {
+  if (ev.key === "Escape") {
+    console.log(openImgInModal);
+  }
 }
