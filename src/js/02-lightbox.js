@@ -8,18 +8,17 @@ const galleryImgItems = galleryItems
   .map(
     ({ preview, original, description }) =>
       `<a class="gallery__item" 
-    href="${original}">
+  href="${original}">
   <img class="gallery__image" src="${preview}" 
   alt="${description}" />
-</a>`
+  </a>`
   )
   .join("");
 
 refs.gallery.insertAdjacentHTML("beforeend", galleryImgItems);
 
-const lightbox = new SimpleLightbox(".gallery a", {});
-lightbox.on("shown.simplelightbox", function () {
-  captionData: "alt";
-  captionPosition: "bottom";
-  captionDelay: 250;
+let gallery = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionPosition: "bottom",
+  captionDelay: 250,
 });
